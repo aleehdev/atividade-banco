@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco</title>
+</head>
+
+<body>
+    <script>
+
+        const senhaCorreta = 3589;
+        var saldo = 100.5;
+
+        var nome = prompt("Qual é o seu nome?");
+
+        while (nome === '') {
+            nome = prompt("Preencha corretamente o seu nome.");
+        }
+
+
+        nomeBoasVindas();
+        function nomeBoasVindas() {
+            var mensagem = "Olá, " + nome + "! É um prazer ter você por aqui!";
+            alert(mensagem);
+            inicio();
+        }
+
+        function inicio() {
+            var escolha = parseInt(prompt('O que deseja? \n 1 - Saldo \n 2 - Extrato \n 3 - Saque \n 4 - Depósito \n 5 - Transferência \n 6 - Sair'));
+
+
+            switch (escolha) {
+                case 1:
+                    verSaldo();
+                    break;
+
+                case 2:
+                    extrato();
+                    break;
+
+                case 3:
+                    senhaSaque();
+                    break;
+
+                case 4:
+                    senhaDeposito();
+                    break;
+
+                case 5:
+                    senhaTransferencia();
+                    break;
+
+                case 6:
+                    sair();
+                    break;
+
+                default:
+                    erro();
+                    break;
+            }
+        }
+
+        function verSaldo() {
+            var senha = parseInt(prompt('Digite sua senha para ver saldo'));
+
+            if (isNaN(senha) || senha === '' || senha !== senhaCorreta) {
+                alert('Senha incorreta,por favor digite novamente.');
+                verSaldo();
+
+            } else {
+                alert("Seu saldo atual é: R$ ${saldo}");
+                inicio();
+            }
+        }
+
+
+        function extrato() {
+            var senha = parseInt(prompt('Digite sua senha para extrato'));
+
+            if (isNaN(senha) || senha === '' || senha !== senhaCorreta) {
+                alert('Senha incorreta.');
+                extrato();
+
+            } else {
+                alert(`Meu extrato bancario\nSaldo atual: R$ ${saldo} \n \n 13/07/2023 \n loja soneda \n R$ 170,00 \n Crédito \n\n 17/07/2023 \n Lojas Americanas\n R$ 50,00 \n  Débito \n\n 18/07/2023 \n Mundial \n R$ 120,00 \n Crédito.`);
+                inicio();
+            }
+        }
+
+        function senhaSaque() {
+            var senha = parseInt(prompt('Digite sua senha para  realizar o saque'));
+
+            if (isNaN(senha) || senha === '' || senha !== senhaCorreta) {
+                alert('Senha incorreta.');
+                senhaSaque();
+
+            } else {
+                fazerSaque();
+            }
+        }
+
+        function fazerSaque() {
+
+            var saque = parseFloat(prompt('Qual o valor para o saque?'));
+
+            if (isNaN(saque) || saque === '') {
+                alert('Informe apenas números.');
+                fazerSaque();
+
+            } else if (saque > saldo || saque <= 0) {
+                alert('Operação não autorizada.');
+                inicio();
+
+            } else {
+                var verificar = confirm('Confirmar saque');
+
+                if (verificar) {
+                    saldo -= saque;
+                    verSaldo();
+
+                } else {
+                    inicio();
+                }
+
+            }
+        }
+
+        function senhaDeposito() {
+            var senha = parseInt(prompt('Digite sua senha para depósito'));
+
+            if (isNaN(senha) || senha === '' || senha !== senhaCorreta) {
+                alert('Senha incorreta., tente novamente');
+                senhaDeposito();
+
+            } else {
+                fazerDeposito();
+            }
+
+        }
+
+        function fazerDeposito(){
+        var deposito = parseFloat(prompt('Informe o valor para o depósito'));
+
+            if(isNaN(deposito) || deposito === ''){
+                alert('Informe apenas números');
+                fazerDeposito();
+
+            } else if(deposito <= 0){
+                alert('Operação não autorizada');
+                inicio();
+
+            } else {
+                var verificar = confirm('Confirmar depósito');
+
+                if(verificar){
+                    saldo += deposito; 
+                    verSaldo();
+
+                } else {
+                    inicio();
+                }
+                
+            }
+       }
+
+
+       function senhaTransferencia(){
+            var senha = parseInt(prompt('Digite sua senha para realizar a transferência.'));
+
+            if(isNaN(senha) || senha === '' || senha !== senhaCorreta){
+                alert('Senha incorreta.');
+                senhaTransferencia();
+
+            } else {
+                fazerTransferencia();
+            }
+        }
+        function fazerTransferencia(){
+            var numeroConta = parseInt(prompt('Informe o número da conta: '));
+
+            if(isNaN(numeroConta) || numeroConta === ''){
+                alert('Informe apenas números.');
+                fazerTransferencia();
+
+            } else {
+                var transferencia = parseInt(prompt('Informe o valor para realizar a transferência: '));
+
+                if(isNaN(transferencia) || transferencia === ''){
+                    alert('Informe apenas números.');
+                    fazerTransferencia();
+
+                } else if(transferencia > saldo || transferencia <= 0){
+                    alert('Operação não autorizada.');
+                    inicio();
+
+                } else {
+                    var verificar = confirm('Confirmar Transferência');
+
+                    if(verificar){
+                        saldo -= transferencia;
+                        verSaldo();
+
+                    } else {
+                        inicio();
+                    }
+                   
+                }
+            }  
+       }
+
+       function erro(){
+        alert('Por favor, informe um número entre 1 e 6');
+        inicio();
+       }
+       function sair(){
+            var confirma = confirm('Você deseja  realmente sair?');
+
+            if(confirma){
+                alert(`${nome}. Foi um prazer ter você por aqui,obrigado por utilizar nossos serviços.`);
+                window.close();
+
+            } else {
+                inicio();
+            }
+       }
+
+    </script>
+</body>
+
+</html>
